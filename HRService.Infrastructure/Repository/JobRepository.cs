@@ -33,7 +33,7 @@ namespace HRService.Infrastructure.Repository
 
         public async Task<IEnumerable<Job>> GetAllJobsAsync()
         {
-            return await _context.Jobs.ToListAsync();
+            return await _context.Jobs.Include(e => e.Department).ToListAsync();
         }
     }
 }

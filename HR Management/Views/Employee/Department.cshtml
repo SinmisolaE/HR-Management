@@ -1,0 +1,41 @@
+﻿@model IEnumerable<HRService.Core.DTO.DepartmentViewDTO>
+@{
+    ViewData["Title"] = "Department";
+}
+
+<div class="container">
+    <div>
+        <h2 class="mb-3">Department List</h2>
+    </div>
+
+    <div>
+        <ul>
+            @if (!Model.Any())
+            {
+                <li>No departments found</li>
+            }
+            else
+            {
+                foreach (var dept in Model)
+                {
+                    <li>@dept.Name</li>
+                    <ul>
+                        @if (dept.Jobs == null || dept.Jobs.Count == 0)
+                        {
+                            <li>No Jobs in this department</li>
+                        }
+                        else
+                        {
+                            foreach (var job in dept.Jobs)
+                            {
+                                <li class="list-group">@job.Name</li>
+                            }
+                        }
+                    </ul>
+                }
+            }
+        </ul>
+    </div>
+
+</div>
+

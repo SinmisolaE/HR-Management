@@ -26,6 +26,26 @@ namespace HRService.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Employee>().Property(a => a.Status).HasConversion<string>();
+
+            //disable cascade delete
+            modelBuilder.Entity<Job>()
+                .HasOne(j => j.Department)
+                .WithMany(b => b.Jobs)
+                .HasForeignKey(t => t.DepartmentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Employee>()
+                .HasOne(e => e.Department)
+                .WithMany(d => d.Employees)
+                .HasForeignKey(e => e.DepartmentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Employee>()
+                .HasOne(e => e.Job)
+                .WithMany(j => j.Employees)
+                .HasForeignKey(e => e.JobId)
+                .OnDelete(DeleteBehavior.Restrict);
+
         }
     }
 }

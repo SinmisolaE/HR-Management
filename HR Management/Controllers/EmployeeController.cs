@@ -14,13 +14,15 @@ namespace HR_Management.Controllers
         private readonly IDepartmentService _departmentService;
         private readonly IJobService _jobService;
         private readonly IEmployeeLeaveService _employeeLeaveService;
+        private readonly ILogger<EmployeeController> _logger;
 
-        public EmployeeController(IEmployeeService employeeService, IDepartmentService departmentService, IJobService jobService, IEmployeeLeaveService employeeLeaveService)
+        public EmployeeController(IEmployeeService employeeService, IDepartmentService departmentService, IJobService jobService, IEmployeeLeaveService employeeLeaveService, ILogger<EmployeeController> logger)
         {
             _employeeService = employeeService;
             _departmentService = departmentService;
             _jobService = jobService;
             _employeeLeaveService = employeeLeaveService;
+            _logger = logger;
         }
 
         public async Task<IActionResult> Try()
@@ -33,7 +35,7 @@ namespace HR_Management.Controllers
         {
             try
             {
-
+                _logger.LogInformation("Getting all Employees");
 
                 var employees = await _employeeService.GetAllEmployeesAsync();
 
@@ -54,9 +56,12 @@ namespace HR_Management.Controllers
 
                 var employeeViewModels = await Task.WhenAll(employeeTasks);
 
+                _logger.LogInformation("Returning all employees");
+
                 return View(employeeViewModels);
             } catch (Exception ex)
             {
+                _logger.LogError("Error: " + ex.Message);
                 ViewBag.ErrorMessage = ex.Message;
                 return View("Error");
             }
@@ -64,8 +69,10 @@ namespace HR_Management.Controllers
 
         public async Task<IActionResult> Details(string email)
         {
+            _logger.LogInformation($"Showing details for {email}");
             if (string.IsNullOrEmpty(email))
             {
+                _logger.LogWarning("Email not passed");
                 return BadRequest("Email is required");
             }
             var emp = await _employeeService.GetEmployeeByEmailAsync(email);
@@ -101,6 +108,7 @@ namespace HR_Management.Controllers
         {
             if (ModelState.IsValid)
             {
+                _logger.LogInformation("Creating new Employee");
                 await _employeeService.AddEmployeeAsync(employeeDTO);
 
                 return Redirect("Index");

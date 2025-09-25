@@ -4,6 +4,7 @@ using HRService.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRService.Infrastructure.Migrations
 {
     [DbContext(typeof(HRDbContext))]
-    partial class HRDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250925125052_UpdatedDb")]
+    partial class UpdatedDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -174,9 +177,9 @@ namespace HRService.Infrastructure.Migrations
             modelBuilder.Entity("HRService.Core.Entities.Job", b =>
                 {
                     b.HasOne("HRService.Core.Entities.Department", "Department")
-                        .WithMany("Jobs")
+                        .WithMany()
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Department");
@@ -185,32 +188,20 @@ namespace HRService.Infrastructure.Migrations
             modelBuilder.Entity("HRService.Core.Entity.Employee", b =>
                 {
                     b.HasOne("HRService.Core.Entities.Department", "Department")
-                        .WithMany("Employees")
+                        .WithMany()
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("HRService.Core.Entities.Job", "Job")
-                        .WithMany("Employees")
+                        .WithMany()
                         .HasForeignKey("JobId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Department");
 
                     b.Navigation("Job");
-                });
-
-            modelBuilder.Entity("HRService.Core.Entities.Department", b =>
-                {
-                    b.Navigation("Employees");
-
-                    b.Navigation("Jobs");
-                });
-
-            modelBuilder.Entity("HRService.Core.Entities.Job", b =>
-                {
-                    b.Navigation("Employees");
                 });
 #pragma warning restore 612, 618
         }

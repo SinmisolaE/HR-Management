@@ -5,11 +5,18 @@ using HRService.Infrastructure.Interfaces;
 using HRService.Infrastructure.Repository;
 using HRService.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.File("Logs/log.txt", rollingInterval: RollingInterval.Hour)
+    .CreateLogger();
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Logging.AddSerilog();
 
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<ILeaveRepository, LeaveRepository>();
