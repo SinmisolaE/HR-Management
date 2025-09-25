@@ -1,0 +1,95 @@
+﻿@model IEnumerable<HRService.Core.DTO.EmployeeViewModel>
+
+@{
+    ViewData["Title"] = "Employees";
+
+}
+
+<div class="container mt-4">
+
+    <h2 class="mb-3">Employee List</h2>
+
+
+    <div class="d-flex justify-content-end justify-content-sm-end">
+
+        <a class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addEmployee">Add a New Employee</a>
+    </div>
+
+    
+  
+        
+    <div class="modal" id="addEmployee">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                @await Html.PartialAsync("_CreateEmployee", new HRService.Core.DTO.EmployeeViewModel()); 
+            </div>
+        </div>
+    </div>
+        
+    
+    
+
+
+    <!--   filter by employee email-->
+    <div>
+        <label class="">Search for employee by email: </label>
+        <input type="email" class=" mb-lg-3" placeholder="doej@accessbankplc.com" id=""/>
+    </div>
+
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                
+                <th>Department</th>
+                <th>Job</th>
+                
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @if(!Model.Any())
+            {
+                <tr>
+                    <td colspan="10" class="text-center">No employees found</td>
+                </tr>
+            }
+            else
+            {
+                
+            
+                @foreach (var emp in Model)
+                {
+                    <tr>
+                        <td>@emp.Id</td>
+                        <td>@emp.FirstName @emp.LastName</td>
+                        <td>@emp.Email</td>
+                        
+                        <td>@emp.DepartmentName</td>
+                        <td>@emp.JobTitle</td>
+
+                        <td>@emp.Status</td>
+
+                        <td>
+                            <a asp-action="Details" asp-route-email="@emp.Email" class="btn btn-primary btn-sm ms-1 mb-1">Details</a>
+                            <a asp-action="Edit" asp-route-id="@emp.Id" class="btn btn-warning ms-1 btn-sm">Edit</a>
+                        </td>
+
+
+                    </tr>
+
+                }
+            }
+        </tbody>
+
+
+    </table>
+
+
+</div>
+

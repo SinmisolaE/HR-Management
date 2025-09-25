@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="container ">
+     <div class="text-center">
+        <h1 class="display-4">Employee Management</h1>
+        <p>To faster employee management.</p>
+        
+     </div>
+
+    <div class="row d-flex justify-content-center g-4 mt-4">
+        <div class="col-md-3 col-sm-6">
+            <div class="mb-4 card"
+                onclick="window.location.href='/Employee/Index';"
+                onmouseover="this.style.transform='scale(1.05)'; this.style.cursor='pointer'"
+                onmouseout="this.style.transform='scale(1)'; "
+            >
+                <div class="card-header">
+
+                    <i data-lucide="users"></i>
+                </div>
+                <div class="mb-4 card-body">
+                    <h5 class="card-title">Employees</h5>
+                    <p class="card-text">Manage Employees records</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <div class="mb-4 card"
+             onmouseover="this.style.transform='scale(1.05)';  this.style.cursor='pointer'"
+             onmouseout="this.style.transform='scale(1)'; ">
+
+                <div class="card-header">
+                    <i data-lucide="calendar-days"></i>
+                </div>
+            <div class=" mb-4 card-body">
+                <h5 class="card-title">Leaves</h5>
+                <p class="card-text">Track Employee Leaves</p>
+            </div>
+        </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="mb-4 card"
+             onmouseover="this.style.transform='scale(1.05)'; this.style.cursor='pointer'"
+             onmouseout="this.style.transform='scale(1)'; "
+        >
+
+            <div class="card-header">
+
+                <i data-lucide="briefcase"></i>
+            </div>
+
+            <div class="card-body">
+                <h5 class="card-title">Jobs and Departments</h5>
+                <p class="card-text">Manages Jobs and Respective Departments</p>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>

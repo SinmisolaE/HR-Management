@@ -1,0 +1,52 @@
+﻿
+
+@{
+    ViewData["Title"] = "Employee Detail";
+}
+
+<h1>Details</h1>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="card">
+            <div class="card-header">
+                <h2>@Model.FirstName @Model.LastName</h2>
+            </div>
+
+            <div class="card-body">
+                <p>Email: @Model.Email</p>
+                <p>Id: @Model.Id</p>
+                <p>Job: @Model.JobTitle</p>
+                <p>Department: @Model.DepartmentName</p>
+                <p>Status: @Model.Status</p>
+                <p>Salary: @Model.Salary</p>
+                <p>Grade: @Model.Grade</p>
+                <p>Date of Birth: @Model.DOB</p>
+                <p>Address: @Model.Address</p>
+                <p>Leaves: </p>
+                @if (Model.employeeLeaves == null || Model.employeeLeaves.Count == 0)
+                {
+                    <p>No Leaves History</p>
+                } else
+                {
+                    <ul>
+
+                        @foreach(var emp in Model.employeeLeaves)
+                        {
+                          <li class="list-group">
+
+                            <p class="list-group-item">@emp.StartDate</p>
+                            <p class="list-group-item">@emp.EndDate</p>
+                            <p class="list-group-item">@emp.Status</p>
+                            <p class="list-group-item">@emp.NumDays</p>
+                             <p class="list-group-item">@emp.CreatedAt</p>
+                          </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
+
+</div>
+
