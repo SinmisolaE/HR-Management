@@ -38,7 +38,7 @@ namespace HRService.Infrastructure.Services
 
             var employee = new Employee(
                 employeeDTO.FirstName, employeeDTO.LastName, employeeDTO.Email,
-                employeeDTO.DOB, employeeDTO.Address, dept.Id, job.Id, employeeDTO.Grade, employeeDTO.Salary
+                employeeDTO.DOB, employeeDTO.Address, job.Id, job.DepartmentId, employeeDTO.Grade, employeeDTO.Salary
             );
             return await _employeeRepository.AddEmployeeAsync(employee);
         }

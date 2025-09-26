@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRService.Infrastructure.Migrations
 {
     [DbContext(typeof(HRDbContext))]
-    [Migration("20250918172736_ResolvedDuplicates")]
-    partial class ResolvedDuplicates
+    [Migration("20250926152647_NewMigration")]
+    partial class NewMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -84,7 +84,7 @@ namespace HRService.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("DeptId")
+                    b.Property<int>("DepartmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -92,6 +92,8 @@ namespace HRService.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DepartmentId");
 
                     b.ToTable("Jobs");
                 });
@@ -172,16 +174,27 @@ namespace HRService.Infrastructure.Migrations
                     b.ToTable("Employees");
                 });
 
+            modelBuilder.Entity("HRService.Core.Entities.Job", b =>
+                {
+                    b.HasOne("HRService.Core.Entities.Department", "Department")
+                        .WithMany("Jobs")
+                        .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Department");
+                });
+
             modelBuilder.Entity("HRService.Core.Entity.Employee", b =>
                 {
                     b.HasOne("HRService.Core.Entities.Department", "Department")
                         .WithMany()
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("HRService.Core.Entities.Job", "Job")
-                        .WithMany()
+                        .WithMany("Employees")
                         .HasForeignKey("JobId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -189,6 +202,16 @@ namespace HRService.Infrastructure.Migrations
                     b.Navigation("Department");
 
                     b.Navigation("Job");
+                });
+
+            modelBuilder.Entity("HRService.Core.Entities.Department", b =>
+                {
+                    b.Navigation("Jobs");
+                });
+
+            modelBuilder.Entity("HRService.Core.Entities.Job", b =>
+                {
+                    b.Navigation("Employees");
                 });
 #pragma warning restore 612, 618
         }

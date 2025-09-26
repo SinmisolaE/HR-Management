@@ -13,7 +13,5 @@ namespace HRService.Core.Entities
         public string Name { get; set; } = string.Empty;
 
         public ICollection<Job> Jobs { get; set; } = new List<Job>();
-        public ICollection<Employee> Employees { get; set; } = new List<Employee>();
-
     }
 }

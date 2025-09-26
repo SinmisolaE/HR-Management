@@ -78,7 +78,9 @@ namespace HRService.Infrastructure.Repository
 
         public async Task<IEnumerable<Employee>> GetEmployeesByDepartment(int departmentId)
         {
-            return await _context.Employees.Where(a => a.DepartmentId == departmentId).ToListAsync();
+            return await _context.Employees
+                .Where(a => a.DepartmentId == departmentId)
+                .ToListAsync();
         }
 
         public async Task<Employee> GetEmployeeByJobAsync(int jobId)

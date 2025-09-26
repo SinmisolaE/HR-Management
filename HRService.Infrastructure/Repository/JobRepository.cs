@@ -28,12 +28,17 @@ namespace HRService.Infrastructure.Repository
 
         public async Task<IEnumerable<Job>> GetJobsByDepartmentAsync(int departmentId)
         {
-            return await _context.Jobs.Where(a => a.DepartmentId == departmentId).ToListAsync();
+            return await _context.Jobs
+                .Where(a => a.DepartmentId == departmentId)
+                .ToListAsync();
         }
 
         public async Task<IEnumerable<Job>> GetAllJobsAsync()
         {
-            return await _context.Jobs.Include(e => e.Department).ToListAsync();
+            return await _context.Jobs
+                .Include(e => e.Department)
+                .Include(e => e.Employees)
+                .ToListAsync();
         }
     }
 }

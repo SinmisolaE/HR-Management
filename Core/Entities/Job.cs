@@ -20,7 +20,7 @@ namespace HRService.Core.Entities
         
         public Department Department { get; set; }
 
-        public ICollection<Employee> Employees { get; set; } = new List<Employee>();
+        public IEnumerable<Employee> Employees { get; set; } = new List<Employee>();
 
     }
 }

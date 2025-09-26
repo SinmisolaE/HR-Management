@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HRService.Core.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +11,10 @@ namespace HRService.Core.DTO
     {
         public string JobName { get; set; } = string.Empty;
         public string DepartmentName { get; set; } = string.Empty;
+
+        public IEnumerable<Employee> Employees { get; set; }
+
+        public JobViewDTO()
+        { }
     }
 }

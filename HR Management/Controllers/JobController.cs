@@ -30,10 +30,13 @@ namespace HR_Management.Controllers
                 var jobSent = jobs.Select(async job => new JobViewDTO
                 {
                     JobName = job.Name,
-                    DepartmentName = job.Department.Name
+                    DepartmentName = job.Department.Name,
+                    Employees = job.Employees
                 });
 
-                return View(jobSent);
+                var jobsView = await Task.WhenAll(jobSent);
+
+                return View(jobsView);
                 //return View();
             } catch (Exception ex)
             {
@@ -54,7 +57,7 @@ namespace HR_Management.Controllers
                 var jobSent = depts.Select(async dept => new DepartmentViewDTO
                 {
                     Name = dept.Name,
-                    Jobs = dept.Jobs
+                    //Jobs = dept.Jobs
                 });
 
                 return View(jobSent);

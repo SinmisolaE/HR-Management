@@ -176,7 +176,7 @@ namespace HRService.Infrastructure.Migrations
                     b.HasOne("HRService.Core.Entities.Department", "Department")
                         .WithMany("Jobs")
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Department");
@@ -185,15 +185,15 @@ namespace HRService.Infrastructure.Migrations
             modelBuilder.Entity("HRService.Core.Entity.Employee", b =>
                 {
                     b.HasOne("HRService.Core.Entities.Department", "Department")
-                        .WithMany("Employees")
+                        .WithMany()
                         .HasForeignKey("DepartmentId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("HRService.Core.Entities.Job", "Job")
                         .WithMany("Employees")
                         .HasForeignKey("JobId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Department");
@@ -203,8 +203,6 @@ namespace HRService.Infrastructure.Migrations
 
             modelBuilder.Entity("HRService.Core.Entities.Department", b =>
                 {
-                    b.Navigation("Employees");
-
                     b.Navigation("Jobs");
                 });
 

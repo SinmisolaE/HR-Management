@@ -17,7 +17,7 @@ namespace HRService.Core.Entity
     }
     public class Employee
     {
-        public Employee(string firstName, string lastName, string email, string dOB, string address, int departmentId, int jobId, string grade, decimal salary)
+        public Employee(string firstName, string lastName, string email, string dOB, string address, int jobId, int departmentId, string grade, decimal salary)
         {
             FirstName = firstName;
             LastName = lastName;
